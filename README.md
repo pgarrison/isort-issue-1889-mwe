@@ -1,11 +1,14 @@
 # Reproducing isort issue #1889
 Log:
+
+1. `pre-commit` cache is empty
 ```console
-# pre-commit cache is empty
 $ ls ~/.cache/pre-commit
 ls: cannot access '/home/philip.garrison/.cache/pre-commit': No such file or directory
+```
 
-# install
+2. Clone this repo
+```console
 $ git clone git@github.com:pgarrison/isort-issue-1889-mwe.git
 Cloning into 'isort-issue-1889-mwe'...
 remote: Enumerating objects: 13, done.
@@ -14,16 +17,20 @@ remote: Compressing objects: 100% (8/8), done.
 remote: Total 13 (delta 0), reused 10 (delta 0), pack-reused 0
 Receiving objects: 100% (13/13), 5.10 KiB | 5.10 MiB/s, done.
 $ cd isort-issue-1889-mwe
+```
 
-# relevant versions not included in Pipfile
+3. System configuration is recent
+```console
 $ python --version
 Python 3.10.6
 $ pip --version
 pip 22.2.2 from /home/philip.garrison/.pyenv/versions/3.10.6/lib/python3.10/site-packages/pip (python 3.10)
 $ pipenv --version
 pipenv, version 2022.9.8
+```
 
-# pipenv virtual environment is clean
+4. `pipenv` virtual environment is clean. Install the dependencies.
+```console
 $ pipenv --venv
 No virtualenv has been created for this project(/home/philip.garrison/workspace/aics/isort-issue-1889-mwe) yet!
 Aborted!
@@ -50,8 +57,10 @@ $  . /home/philip.garrison/.local/share/virtualenvs/isort-issue-1889-mwe-rmCrJBL
 
 $ pre-commit install
 pre-commit installed at .git/hooks/pre-commit
+```
 
-# This pre-commit command finds an error
+5. This `pre-commit` command finds an error
+```console
 $ pre-commit run isort --all-files
 [INFO] Initializing environment for https://github.com/pycqa/isort.
 [INFO] Installing environment for https://github.com/pycqa/isort.
@@ -74,8 +83,10 @@ index 366ffca..5b45831 100644
 +import time
 
 $ git add .
+```
 
-# this pre-commit hook disagrees with the previous one
+6. This pre-commit hook disagrees with the previous one
+```console
 $ git commit -m "fix pre-commit run isort --all-files"
 isort (python)...........................................................Failed
 - hook id: isort
